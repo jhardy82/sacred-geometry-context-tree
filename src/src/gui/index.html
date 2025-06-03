@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Sacred Geometry Context Tree</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .header {
+            background: rgba(26, 26, 46, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #4a90e2;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            background: linear-gradient(45deg, #4a90e2, #7b68ee, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .golden-ratio {
+            font-size: 0.9rem;
+            color: #ffd700;
+        }
+
+        .main-container {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(16, 16, 32, 0.8);
+            backdrop-filter: blur(5px);
+            border-right: 1px solid #4a90e2;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .visualization-container {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #sacred-canvas {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0f0f23 0%, #0a0a1a 100%);
+        }
+
+        .context-info {
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid #4a90e2;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .context-title {
+            color: #4a90e2;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .dimension-bar {
+            display: flex;
+            margin: 0.5rem 0;
+            align-items: center;
+        }
+
+        .dimension-label {
+            width: 100px;
+            font-size: 0.8rem;
+            color: #a0a0a0;
+        }
+
+        .dimension-value {
+            flex: 1;
+            height: 8px;
+            background: rgba(74, 144, 226, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .dimension-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4a90e2, #7b68ee);
+            transition: width 0.3s ease;
+        }
+
+        .sacred-metrics {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.3rem 0;
+        }
+
+        .metric-label {
+            color: #ffd700;
+        }
+
+        .metric-value {
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .controls {
+            background: rgba(16, 16, 32, 0.8);
+            border: 1px solid #4a90e2;
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .control-group {
+            margin-bottom: 1rem;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #a0a0a0;
+        }
+
+        .control-input {
+            width: 100%;
+            padding: 0.5rem;
+            background: rgba(74, 144, 226, 0.1);
+            border: 1px solid #4a90e2;
+            border-radius: 4px;
+            color: #ffffff;
+        }
+
+        .button {
+            background: linear-gradient(45deg, #4a90e2, #7b68ee);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin: 0.2rem;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(74, 144, 226, 0.3);
+        }
+
+        .status-bar {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(16, 16, 32, 0.9);
+            border: 1px solid #4a90e2;
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .status-left {
+            color: #a0a0a0;
+        }
+
+        .status-right {
+            color: #ffd700;
+        }
+
+        /* Sacred geometry loading animation */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+        }
+
+        .pentagon {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #4a90e2;
+            border-radius: 50%;
+            animation: rotate 3s linear infinite;
+        }
+
+        .pentagon:nth-child(2) {
+            animation-delay: 0.6s;
+            border-color: #7b68ee;
+        }
+
+        .pentagon:nth-child(3) {
+            animation-delay: 1.2s;
+            border-color: #ffd700;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="title">🌟 Sacred Geometry Context Tree</div>
+        <div class="golden-ratio">φ = 1.618033988749</div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <div class="context-info">
+                <div class="context-title" id="current-context">workspace_root</div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">🌍 Terrestrial</div>
+                    <div class="dimension-value">
+                        <div class="dimension-fill" id="terrestrial-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">⏰ Temporal</div>
+                    <div class="dimension-value">
+                        <div class="dimension-fill" id="temporal-fill" style="width: 60%"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">🔗 Relational</div>
+                    <div class="dimension-value">
+                        <div class="dimension-fill" id="relational-fill" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">⭐ Qualitative</div>
+                    <div class="dimension-value">
+                        <div class="dimension-fill" id="qualitative-fill" style="width: 40%"></div>
+                    </div>
+                </div>
+                <div class="dimension-bar">
+                    <div class="dimension-label">⚡ Operational</div>
+                    <div class="dimension-value">
+                        <div class="dimension-fill" id="operational-fill" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sacred-metrics">
+                <div class="context-title">🔮 Sacred Geometry</div>
+                <div class="metric">
+                    <span class="metric-label">Harmonic Signature</span>
+                    <span class="metric-value" id="harmonic-signature">16.326</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Golden Ratio Position</span>
+                    <span class="metric-value" id="golden-position">(1.618, 0.618)</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Fibonacci Depth</span>
+                    <span class="metric-value" id="fibonacci-depth">5</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Pentagonal Harmony</span>
+                    <span class="metric-value" id="pentagonal-harmony">φ²</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="context-title">🎮 Navigation</div>
+                <div class="control-group">
+                    <label class="control-label">Search Context</label>
+                    <input type="text" class="control-input" id="search-input" placeholder="Enter context name...">
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Navigation Type</label>
+                    <select class="control-input" id="navigationSelect">
+                        <option value="harmonic">🌟 Harmonic (Golden Ratio)</option>
+                        <option value="fibonacci">🌀 Fibonacci Spiral</option>
+                        <option value="pentagonal">⭐ Pentagonal</option>
+                        <option value="direct">➡️ Direct</option>
+                    </select>
+                </div>
+                <button class="button" id="refreshBtn">🔄 Refresh</button>
+                <button class="button" id="exportBtn">📤 Export</button>
+                <button class="button" onclick="clearSelection()">🧹 Clear</button>
+                <button class="button" onclick="resetView()">🔄 Reset View</button>
+            </div>
+        </div>
+
+        <div class="visualization-container">
+            <canvas id="contextCanvas"></canvas>
+
+            <div class="loading" id="loading">
+                <div class="pentagon"></div>
+                <div class="pentagon"></div>
+                <div class="pentagon"></div>
+            </div>
+
+            <div class="status-bar">
+                <div class="status-left">
+                    <span id="nodeCountDisplay">Loading context tree...</span>
+                </div>
+                <div class="status-right">
+                    <span id="statusMessage">Calculating sacred patterns...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sacred-geometry-engine.js"></script>
+    <script src="context-tree-api.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+# PowerShell
+*.ps1xml
+*.psd1~
+*.psm1~
+
+# Logs
+*.log
+logs/
+temp/
+
+# Configuration
+*.local.json
+.env
+
+# VS Code
+.vscode/settings.json
+.vscode/launch.json
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Backup files
+*.bak
+*.backup
+*~
