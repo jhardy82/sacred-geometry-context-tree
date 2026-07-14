@@ -15,7 +15,7 @@ Sacred Geometry Integration:
 - Fibonacci sequence for story pacing
 - Harmonic resonance for content flow
 
-Author: GitHub Copilot (Avanade Modern Workplace Engineering)
+Author: GitHub Copilot ([EMPLOYER_NAME] Modern Workplace Engineering)
 """
 
 import json
